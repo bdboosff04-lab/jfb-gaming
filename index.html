@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>JFB Gaming – Free Fire Tournament</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@600;700&family=Hind+Siliguri:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f6f3ee;--surface:#fff;--ink:#1d1a17;--mute:#6b645c;--line:#e2dcd2;--fire:#e8470f;--fire-ink:#fff;--ok:#1f8a4c;--bad:#c62828;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#15110f;--surface:#211b18;--ink:#f3ece4;--mute:#a79c90;--line:#3a312b;--fire:#ff6a2b;--fire-ink:#1a0d05;--ok:#4cc27f;--bad:#ff6b6b;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#15110f;--surface:#211b18;--ink:#f3ece4;--mute:#a79c90;--line:#3a312b;--fire:#ff6a2b;--fire-ink:#1a0d05;--ok:#4cc27f;--bad:#ff6b6b;color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 "Hind Siliguri",system-ui,sans-serif}
+h1,h2,h3{font-family:Rajdhani,"Hind Siliguri",sans-serif;margin:0;line-height:1.1}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:10px 16px}
+.logo{font:700 24px Rajdhani,sans-serif;letter-spacing:.5px;color:var(--ink);text-decoration:none}
+.logo b{color:var(--fire)}
+nav a,.btn,button{font:600 15px "Hind Siliguri",sans-serif}
+nav a{color:var(--mute);text-decoration:none;margin-left:14px}
+nav a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid var(--fire);outline-offset:2px}
+main{max-width:860px;margin:0 auto;padding:16px}
+.notice{background:var(--fire);color:var(--fire-ink);padding:8px 16px;text-align:center;font-weight:600}
+.hero{padding:28px 0 12px}
+.hero h1{font-size:clamp(40px,12vw,76px);text-transform:uppercase}
+.hero h1 span{display:block;color:var(--fire)}
+.hero p{color:var(--mute);max-width:46ch;margin:10px 0 0}
+.stats{display:flex;gap:22px;margin:18px 0 6px;flex-wrap:wrap}
+.stats div{font-size:14px;color:var(--mute)}.stats b{display:block;font:700 28px Rajdhani,sans-serif;color:var(--ink)}
+h2.sec{font-size:28px;margin:26px 0 12px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin-bottom:12px}
+.row{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap}
+.card h3{font-size:24px}
+.tags{display:flex;gap:6px;flex-wrap:wrap;margin:8px 0}
+.tag{border:1px solid var(--line);border-radius:999px;padding:1px 10px;font-size:13px;color:var(--mute)}
+.prize{font:700 26px Rajdhani,sans-serif;color:var(--fire);text-align:right}
+.prize small{display:block;font:400 12px "Hind Siliguri";color:var(--mute)}
+.bar{height:6px;background:var(--line);border-radius:3px;overflow:hidden;margin:8px 0 4px}
+.bar i{display:block;height:100%;background:var(--fire)}
+.btn,button{background:var(--fire);color:var(--fire-ink);border:0;border-radius:8px;padding:10px 16px;cursor:pointer;min-height:44px}
+.btn.alt,button.alt{background:transparent;color:var(--ink);border:1px solid var(--line)}
+button.del{background:transparent;color:var(--bad);border:1px solid var(--bad);min-height:36px;padding:4px 12px}
+button:disabled{opacity:.5;cursor:not-allowed}
+label{display:block;font-size:14px;color:var(--mute);margin:10px 0 3px}
+input,select{width:100%;padding:10px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink);font:16px "Hind Siliguri",sans-serif}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:0 12px}
+.msg{padding:8px 12px;border-radius:8px;margin:10px 0;font-size:14px}
+.msg.ok{background:color-mix(in srgb,var(--ok) 18%,transparent);color:var(--ok)}
+.msg.bad{background:color-mix(in srgb,var(--bad) 18%,transparent);color:var(--bad)}
+.tabs{display:flex;gap:6px;margin:12px 0;overflow-x:auto}
+.tabs button{background:transparent;color:var(--mute);border:1px solid var(--line);white-space:nowrap}
+.tabs button.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.scroll{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th,td{text-align:left;padding:8px;border-bottom:1px solid var(--line);white-space:nowrap}
+.empty{color:var(--mute);padding:20px 0;text-align:center}
+footer{text-align:center;color:var(--mute);font-size:13px;padding:30px 16px}
+.hidden{display:none}
+@media (max-width:480px){.grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div id="notice" class="notice hidden"></div>
+<header>
+  <a class="logo" href="#home">JFB <b>GAMING</b></a>
+  <nav><a href="#home">টুর্নামেন্ট</a><a href="#admin">অ্যাডমিন</a></nav>
+</header>
+<main id="app"></main>
+<footer id="foot"></footer>
+
+<script>
+/* ===== Storage (localStorage, try/catch) ===== */
+var KEY='jfb_v2';
+var DEF={
+  settings:{name:'JFB Gaming',notice:'নতুন টুর্নামেন্টে রেজিস্ট্রেশন চলছে!',contact:'',pass:'admin123'},
+  tournaments:[
+    {id:'t1',title:'Squad Showdown',mode:'Squad',map:'Bermuda',fee:50,prize:1000,slots:12,time:'',status:'open'},
+    {id:'t2',title:'Solo Rush',mode:'Solo',map:'Purgatory',fee:20,prize:300,slots:48,time:'',status:'open'}
+  ],
+  regs:[]
+};
+var db;
+function load(){try{var r=localStorage.getItem(KEY);db=r?JSON.parse(r):null}catch(e){db=null}
+  if(!db||!db.tournaments){db=JSON.parse(JSON.stringify(DEF))}}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(db))}catch(e){}}
+function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
+function uid(){return 'x'+Date.now().toString(36)+Math.random().toString(36).slice(2,6)}
+function taka(n){return '৳'+Number(n||0).toLocaleString('en-IN')}
+function fmtTime(t){if(!t)return 'সময় শীঘ্রই জানানো হবে';try{return new Date(t).toLocaleString('bn-BD',{dateStyle:'medium',timeStyle:'short'})}catch(e){return t}}
+function taken(id){return db.regs.filter(function(r){return r.tid===id}).length}
+var admin=false,tab='t',flash=null;
+var $=function(s){return document.querySelector(s)};
+
+/* ===== Router ===== */
+function route(){
+  var h=location.hash.replace('#','')||'home';
+  $('#app').innerHTML=(h==='admin')?viewAdmin():viewHome();
+  var s=db.settings;
+  document.title=s.name+' – Free Fire Tournament';
+  var n=$('#notice');n.textContent=s.notice||'';n.classList.toggle('hidden',!s.notice);
+  $('#foot').textContent='© '+new Date().getFullYear()+' '+s.name+' · শুধুমাত্র Free Fire';
+  document.querySelector('.logo').innerHTML=esc(s.name).replace(/^(\S+)\s?(.*)$/,'$1 <b>$2</b>');
+}
+window.addEventListener('hashchange',function(){flash=null;route()});
+
+/* ===== Public view ===== */
+function viewHome(){
+  var open=db.tournaments.filter(function(t){return t.status==='open'});
+  var out='<section class="hero"><h1>Free Fire<span>টুর্নামেন্ট</span></h1>'+
+  '<p>রেজিস্ট্রেশন করুন, রুম আইডি পান, ম্যাচ খেলুন এবং প্রাইজ জিতুন।</p>'+
+  '<div class="stats"><div><b>'+open.length+'</b>চলমান ম্যাচ</div><div><b>'+db.regs.length+'</b>মোট প্লেয়ার</div></div></section>'+
+  '<h2 class="sec">ম্যাচ তালিকা</h2>';
+  if(flash)out+='<div class="msg '+flash.t+'">'+esc(flash.m)+'</div>';
+  if(!db.tournaments.length)out+='<div class="empty">এখনো কোনো ম্যাচ নেই।</div>';
+  db.tournaments.forEach(function(t){
+    var n=taken(t.id),full=n>=t.slots,closed=t.status!=='open',pct=Math.min(100,Math.round(n/t.slots*100));
+    out+='<div class="card"><div class="row"><div><h3>'+esc(t.title)+'</h3>'+
+    '<div class="tags"><span class="tag">'+esc(t.mode)+'</span><span class="tag">'+esc(t.map)+'</span><span class="tag">এন্ট্রি '+(t.fee>0?taka(t.fee):'ফ্রি')+'</span></div>'+
+    '<div style="color:var(--mute);font-size:14px">'+esc(fmtTime(t.time))+'</div></div>'+
+    '<div class="prize">'+taka(t.prize)+'<small>প্রাইজ পুল</small></div></div>'+
+    '<div class="bar"><i style="width:'+pct+'%"></i></div><div style="font-size:13px;color:var(--mute)">'+n+'/'+t.slots+' স্লট পূর্ণ</div>'+
+    '<div style="margin-top:10px">'+(closed?'<button disabled>ম্যাচ বন্ধ</button>':full?'<button disabled>স্লট শেষ</button>':'<button onclick="openJoin(\''+t.id+'\')">জয়েন করুন</button>')+'</div>'+
+    '<div id="j'+t.id+'"></div></div>';
+  });
+  return out;
+}
+function openJoin(id){
+  var box=$('#j'+id);
+  if(box.innerHTML){box.innerHTML='';return}
+  box.innerHTML='<div class="grid"><div><label>Free Fire নাম</label><input id="n'+id+'" maxlength="30"></div>'+
+  '<div><label>Free Fire UID</label><input id="u'+id+'" inputmode="numeric" maxlength="14"></div>'+
+  '<div><label>ফোন নম্বর</label><input id="p'+id+'" inputmode="tel" maxlength="14" placeholder="01XXXXXXXXX"></div>'+
+  '<div><label>পেমেন্ট ট্রানজেকশন আইডি</label><input id="x'+id+'" maxlength="30" placeholder="এন্ট্রি ফি থাকলে"></div></div>'+
+  '<div id="e'+id+'"></div><div style="margin-top:12px"><button onclick="join(\''+id+'\')">রেজিস্ট্রেশন নিশ্চিত করুন</button></div>';
+}
+function join(id){
+  var t=db.tournaments.filter(function(x){return x.id===id})[0];
+  var name=$('#n'+id).value.trim(),u=$('#u'+id).value.trim(),p=$('#p'+id).value.trim(),x=$('#x'+id).value.trim(),e=$('#e'+id);
+  var err='';
+  if(!name)err='Free Fire নাম লিখুন।';
+  else if(!/^\d{6,14}$/.test(u))err='UID শুধু সংখ্যা হতে হবে (৬–১৪ ডিজিট)।';
+  else if(!/^01\d{9}$/.test(p))err='সঠিক ১১ ডিজিটের ফোন নম্বর দিন।';
+  else if(t.fee>0&&!x)err='এন্ট্রি ফি দিয়ে ট্রানজেকশন আইডি লিখুন।';
+  else if(db.regs.some(function(r){return r.tid===id&&r.uid===u}))err='এই UID দিয়ে আগেই রেজিস্ট্রেশন হয়েছে।';
+  else if(taken(id)>=t.slots)err='দুঃখিত, স্লট পূর্ণ।';
+  if(err){e.innerHTML='<div class="msg bad">'+esc(err)+'</div>';return}
+  db.regs.push({id:uid(),tid:id,name:name,uid:u,phone:p,trx:x,at:Date.now(),paid:t.fee<=0});
+  save();flash={t:'ok',m:'রেজিস্ট্রেশন সফল হয়েছে। অ্যাডমিন যাচাইয়ের পর রুম আইডি জানানো হবে।'};route();window.scrollTo(0,0);
+}
+
+/* ===== Admin ===== */
+function viewAdmin(){
+  if(!admin)return '<h2 class="sec">অ্যাডমিন লগইন</h2><div class="card"><label>পাসওয়ার্ড</label><input id="ap" type="password" autocomplete="current-password" onkeydown="if(event.key===\'Enter\')login()">'+
+  '<div id="ae"></div><div style="margin-top:12px"><button onclick="login()">লগইন</button></div></div>';
+  var out='<h2 class="sec">অ্যাডমিন প্যানেল</h2>'+
+  '<div class="tabs"><button class="'+(tab==='t'?'on':'')+'" onclick="setTab(\'t\')">ম্যাচ</button><button class="'+(tab==='r'?'on':'')+'" onclick="setTab(\'r\')">রেজিস্ট্রেশন ('+db.regs.length+')</button><button class="'+(tab==='s'?'on':'')+'" onclick="setTab(\'s\')">সেটিংস</button><button class="alt" onclick="logout()">লগআউট</button></div>';
+  if(flash)out+='<div class="msg '+flash.t+'">'+esc(flash.m)+'</div>';
+  if(tab==='t')out+=adminT();else if(tab==='r')out+=adminR();else out+=adminS();
+  return out;
+}
+function login(){
+  if($('#ap').value===db.settings.pass){admin=true;route()}
+  else $('#ae').innerHTML='<div class="msg bad">পাসওয়ার্ড ভুল।</div>';
+}
+function logout(){admin=false;flash=null;route()}
+function setTab(t){tab=t;flash=null;route()}
+function adminT(){
+  var out='<div class="card"><h3>নতুন ম্যাচ যোগ করুন</h3><div class="grid">'+
+  '<div><label>ম্যাচের নাম</label><input id="f_title"></div>'+
+  '<div><label>মোড</label><select id="f_mode"><option>Solo</option><option>Duo</option><option selected>Squad</option></select></div>'+
+  '<div><label>ম্যাপ</label><select id="f_map"><option>Bermuda</option><option>Purgatory</option><option>Kalahari</option><option>Alpine</option><option>NeXTerra</option></select></div>'+
+  '<div><label>এন্ট্রি ফি (৳)</label><input id="f_fee" type="number" min="0" value="0"></div>'+
+  '<div><label>প্রাইজ পুল (৳)</label><input id="f_prize" type="number" min="0" value="0"></div>'+
+  '<div><label>মোট স্লট</label><input id="f_slots" type="number" min="1" value="12"></div></div>'+
+  '<label>ম্যাচের সময়</label><input id="f_time" type="datetime-local">'+
+  '<div style="margin-top:12px"><button onclick="addT()">ম্যাচ যোগ করুন</button></div></div>';
+  db.tournaments.forEach(function(t){
+    out+='<div class="card"><div class="row"><div><b>'+esc(t.title)+'</b><div style="font-size:13px;color:var(--mute)">'+esc(t.mode)+' · '+esc(t.map)+' · '+taken(t.id)+'/'+t.slots+' স্লট · '+(t.status==='open'?'চালু':'বন্ধ')+'</div></div>'+
+    '<div style="display:flex;gap:8px"><button class="alt" onclick="toggleT(\''+t.id+'\')">'+(t.status==='open'?'বন্ধ করুন':'চালু করুন')+'</button><button class="del" onclick="delT(\''+t.id+'\')">মুছুন</button></div></div></div>';
+  });
+  return out;
+}
+function addT(){
+  var g=function(k){return $('#f_'+k).value.trim()};
+  if(!g('title')){flash={t:'bad',m:'ম্যাচের নাম লিখুন।'};route();return}
+  db.tournaments.unshift({id:uid(),title:g('title'),mode:g('mode'),map:g('map'),fee:+g('fee')||0,prize:+g('prize')||0,slots:Math.max(1,+g('slots')||1),time:g('time'),status:'open'});
+  save();flash={t:'ok',m:'ম্যাচ যোগ হয়েছে।'};route();
+}
+function toggleT(id){db.tournaments.forEach(function(t){if(t.id===id)t.status=t.status==='open'?'closed':'open'});save();flash=null;route()}
+function delT(id){
+  if(!confirm('এই ম্যাচ ও এর সব রেজিস্ট্রেশন মুছে যাবে। নিশ্চিত?'))return;
+  db.tournaments=db.tournaments.filter(function(t){return t.id!==id});
+  db.regs=db.regs.filter(function(r){return r.tid!==id});
+  save();flash={t:'ok',m:'ম্যাচ মুছে ফেলা হয়েছে।'};route();
+}
+function adminR(){
+  if(!db.regs.length)return '<div class="empty">এখনো কোনো রেজিস্ট্রেশন নেই।</div>';
+  var tn={};db.tournaments.forEach(function(t){tn[t.id]=t.title});
+  var out='<div class="card scroll"><table><tr><th>ম্যাচ</th><th>নাম</th><th>UID</th><th>ফোন</th><th>TrxID</th><th>পেমেন্ট</th><th></th></tr>';
+  db.regs.slice().reverse().forEach(function(r){
+    out+='<tr><td>'+esc(tn[r.tid]||'—')+'</td><td>'+esc(r.name)+'</td><td>'+esc(r.uid)+'</td><td>'+esc(r.phone)+'</td><td>'+esc(r.trx||'—')+'</td>'+
+    '<td><button class="alt" style="min-height:32px;padding:2px 10px" onclick="paid(\''+r.id+'\')">'+(r.paid?'✔ যাচাই হয়েছে':'যাচাই করুন')+'</button></td>'+
+    '<td><button class="del" onclick="delR(\''+r.id+'\')">মুছুন</button></td></tr>';
+  });
+  return out+'</table></div><button class="alt" onclick="csv()">CSV ডাউনলোড (কপি)</button>';
+}
+function paid(id){db.regs.forEach(function(r){if(r.id===id)r.paid=!r.paid});save();flash=null;route()}
+function delR(id){if(!confirm('এই রেজিস্ট্রেশন মুছবেন?'))return;db.regs=db.regs.filter(function(r){return r.id!==id});save();flash=null;route()}
+function csv(){
+  var rows=[['name','uid','phone','trx','paid']].concat(db.regs.map(function(r){return [r.name,r.uid,r.phone,r.trx,r.paid]}));
+  var text=rows.map(function(r){return r.map(function(c){return '"'+String(c==null?'':c).replace(/"/g,'""')+'"'}).join(',')}).join('\n');
+  try{navigator.clipboard.writeText(text);flash={t:'ok',m:'CSV ডেটা কপি হয়েছে। যেকোনো নোট বা শিটে পেস্ট করুন।'}}catch(e){flash={t:'bad',m:'কপি করা যায়নি।'}}
+  route();
+}
+function adminS(){
+  var s=db.settings;
+  return '<div class="card"><h3>সাইট সেটিংস</h3><label>সাইটের নাম</label><input id="s_name" value="'+esc(s.name)+'">'+
+  '<label>উপরের নোটিশ (ফাঁকা রাখলে লুকাবে)</label><input id="s_notice" value="'+esc(s.notice)+'">'+
+  '<label>নতুন অ্যাডমিন পাসওয়ার্ড (বদলাতে না চাইলে ফাঁকা রাখুন)</label><input id="s_pass" type="text" autocomplete="off">'+
+  '<div style="margin-top:12px"><button onclick="saveS()">সেভ করুন</button></div></div>'+
+  '<div class="card"><h3>ডেটা রিসেট</h3><p style="color:var(--mute);margin:6px 0">এই ডিভাইসের সব ম্যাচ ও রেজিস্ট্রেশন মুছে যাবে।</p><button class="del" onclick="resetAll()">সব রিসেট করুন</button></div>';
+}
+function saveS(){
+  var s=db.settings,p=$('#s_pass').value.trim();
+  s.name=$('#s_name').value.trim()||'JFB Gaming';s.notice=$('#s_notice').value.trim();
+  if(p){if(p.length<6){flash={t:'bad',m:'পাসওয়ার্ড কমপক্ষে ৬ অক্ষরের হতে হবে।'};route();return}s.pass=p}
+  save();flash={t:'ok',m:'সেটিংস সেভ হয়েছে।'};route();
+}
+function resetAll(){if(!confirm('সত্যিই সব ডেটা মুছবেন?'))return;db=JSON.parse(JSON.stringify(DEF));save();flash={t:'ok',m:'রিসেট সম্পন্ন।'};route()}
+
+load();route();
+</script>
+</body>
+</html>
