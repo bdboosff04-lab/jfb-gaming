@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>JFB Gaming – Free Fire Tournament</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@600;700&family=Hind+Siliguri:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f6f3ee;--surface:#fff;--ink:#1d1a17;--mute:#6b645c;--line:#e2dcd2;--fire:#e8470f;--fire-ink:#fff;--ok:#1f8a4c;--bad:#c62828;--gold:#b7791f;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#15110f;--surface:#211b18;--ink:#f3ece4;--mute:#a79c90;--line:#3a312b;--fire:#ff6a2b;--fire-ink:#1a0d05;--ok:#4cc27f;--bad:#ff6b6b;--gold:#f0b429;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#15110f;--surface:#211b18;--ink:#f3ece4;--mute:#a79c90;--line:#3a312b;--fire:#ff6a2b;--fire-ink:#1a0d05;--ok:#4cc27f;--bad:#ff6b6b;--gold:#f0b429;color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 "Hind Siliguri",system-ui,sans-serif}
+h1,h2,h3{font-family:Rajdhani,"Hind Siliguri",sans-serif;margin:0;line-height:1.1}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 16px}
+.logo{font:700 24px Rajdhani,sans-serif;letter-spacing:.5px;color:var(--ink);text-decoration:none;white-space:nowrap}
+.logo b{color:var(--fire)}
+nav{display:flex;align-items:center;gap:4px;overflow-x:auto}
+nav a,.btn,button{font:600 15px "Hind Siliguri",sans-serif}
+nav a{color:var(--mute);text-decoration:none;padding:6px 8px;white-space:nowrap;border-bottom:2px solid transparent}
+nav a.on{color:var(--ink);border-bottom-color:var(--fire)}
+nav a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,a:focus-visible{outline:3px solid var(--fire);outline-offset:2px}
+button.ic{background:transparent;color:var(--ink);border:1px solid var(--line);min-height:36px;padding:2px 10px;font-size:16px}
+main{max-width:860px;margin:0 auto;padding:16px}
+.notice{background:var(--fire);color:var(--fire-ink);padding:8px 16px;text-align:center;font-weight:600}
+.hero{padding:28px 0 12px}
+.hero h1{font-size:clamp(40px,12vw,76px);text-transform:uppercase}
+.hero h1 span{display:block;color:var(--fire)}
+.hero p{color:var(--mute);max-width:46ch;margin:10px 0 0}
+.stats{display:flex;gap:22px;margin:18px 0 6px;flex-wrap:wrap}
+.stats div{font-size:14px;color:var(--mute)}.stats b{display:block;font:700 28px Rajdhani,sans-serif;color:var(--ink)}
+h2.sec{font-size:28px;margin:26px 0 12px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin-bottom:12px}
+.row{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap}
+.card h3{font-size:24px}
+.tags{display:flex;gap:6px;flex-wrap:wrap;margin:8px 0}
+.tag{border:1px solid var(--line);border-radius:999px;padding:1px 10px;font-size:13px;color:var(--mute)}
+.tag.ok{color:var(--ok);border-color:var(--ok)}.tag.warn{color:var(--gold);border-color:var(--gold)}
+.prize{font:700 26px Rajdhani,sans-serif;color:var(--fire);text-align:right}
+.prize small{display:block;font:400 12px "Hind Siliguri";color:var(--mute)}
+.bar{height:6px;background:var(--line);border-radius:3px;overflow:hidden;margin:8px 0 4px}
+.bar i{display:block;height:100%;background:var(--fire)}
+.cd{font-size:14px;color:var(--fire);font-weight:600}
+.btn,button{background:var(--fire);color:var(--fire-ink);border:0;border-radius:8px;padding:10px 16px;cursor:pointer;min-height:44px;text-decoration:none;display:inline-flex;align-items:center}
+.btn.alt,button.alt{background:transparent;color:var(--ink);border:1px solid var(--line)}
+button.del{background:transparent;color:var(--bad);border:1px solid var(--bad);min-height:36px;padding:4px 12px}
+button:disabled{opacity:.5;cursor:not-allowed}
+label{display:block;font-size:14px;color:var(--mute);margin:10px 0 3px}
+input,select{width:100%;padding:10px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink);font:16px "Hind Siliguri",sans-serif}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:0 12px}
+.msg{padding:8px 12px;border-radius:8px;margin:10px 0;font-size:14px}
+.msg.ok{background:color-mix(in srgb,var(--ok) 18%,transparent);color:var(--ok)}
+.msg.bad{background:color-mix(in srgb,var(--bad) 18%,transparent);color:var(--bad)}
+.pay{background:color-mix(in srgb,var(--fire) 12%,transparent);border-radius:8px;padding:8px 12px;margin-top:12px;font-size:14px}
+.room{border:1px dashed var(--ok);border-radius:8px;padding:8px 12px;margin-top:8px;font-size:15px}
+.room b{font-family:Rajdhani,sans-serif;font-size:20px;letter-spacing:1px}
+.tabs{display:flex;gap:6px;margin:12px 0;overflow-x:auto}
+.tabs button{background:transparent;color:var(--mute);border:1px solid var(--line);white-space:nowrap}
+.tabs button.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.edit{border-top:1px solid var(--line);margin-top:12px;padding-top:4px}
+.edit h4{margin:14px 0 2px;font:700 18px Rajdhani,"Hind Siliguri",sans-serif}
+.win{display:flex;justify-content:space-between;gap:10px;padding:6px 0;border-bottom:1px solid var(--line)}
+.win:last-child{border-bottom:0}
+.win b{color:var(--gold)}
+.scroll{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th,td{text-align:left;padding:8px;border-bottom:1px solid var(--line);white-space:nowrap}
+.empty{color:var(--mute);padding:20px 0;text-align:center}
+footer{text-align:center;color:var(--mute);font-size:13px;padding:30px 16px}
+.hidden{display:none}
+@media (max-width:480px){.grid{grid-template-columns:1fr}.logo{font-size:20px}}
+</style>
+</head>
+<body>
+<div id="notice" class="notice hidden"></div>
+<header>
+  <a class="logo" href="#home">JFB <b>GAMING</b></a>
+  <nav id="nav">
+    <a href="#home" data-r="home">টুর্নামেন্ট</a>
+    <a href="#results" data-r="results">ফলাফল</a>
+    <a href="#check" data-r="check">আমার স্ট্যাটাস</a>
+    <a href="#dashboard" data-r="dashboard">ড্যাশবোর্ড</a>
+    <a href="#leaderboard" data-r="leaderboard">লিডারবোর্ড</a>
+    <a href="#updates" data-r="updates">আপডেট</a>
+    <a href="#admin" data-r="admin">অ্যাডমিন</a>
+    <button class="ic" onclick="toggleTheme()" aria-label="থিম বদলান" title="ডার্ক / লাইট">◐</button>
+  </nav>
+</header>
+<main id="app"></main>
+<footer id="foot"></footer>
+
+<script>
+/* ===== Storage ===== */
+var KEY='jfb_v2',TK='jfb_theme';
+var DEF={
+  settings:{name:'JFB Gaming',notice:'নতুন টুর্নামেন্টে রেজিস্ট্রেশন চলছে!',contact:'',whatsapp:'',bkash:'',nagad:'',payNote:'',pass:'admin123'},
+  tournaments:[
+    {id:'t1',title:'Squad Showdown',mode:'Squad',map:'Bermuda',fee:50,prize:1000,slots:12,time:'',status:'open',room:'',roomPass:'',result:[]},
+    {id:'t2',title:'Solo Rush',mode:'Solo',map:'Purgatory',fee:20,prize:300,slots:48,time:'',status:'open',room:'',roomPass:'',result:[]}
+  ],
+  regs:[],
+  banned:[]
+};
+var db;
+function clone(o){return JSON.parse(JSON.stringify(o))}
+function load(){
+  try{var r=localStorage.getItem(KEY);db=r?JSON.parse(r):null}catch(e){db=null}
+  if(!db||!db.tournaments)db=clone(DEF);
+  db.settings=db.settings||{};
+  for(var k in DEF.settings)if(db.settings[k]===undefined)db.settings[k]=DEF.settings[k];
+  db.regs=db.regs||[];
+  db.banned=db.banned||[];
+  db.tournaments.forEach(function(t){
+    if(t.room===undefined)t.room='';
+    if(t.roomPass===undefined)t.roomPass='';
+    if(!t.result)t.result=[];
+  });
+}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(db))}catch(e){}}
+function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
+function uid(){return 'x'+Date.now().toString(36)+Math.random().toString(36).slice(2,6)}
+function taka(n){return '৳'+Number(n||0).toLocaleString('en-IN')}
+function bn(n){try{return Number(n).toLocaleString('bn-BD')}catch(e){return n}}
+function fmtTime(t){if(!t)return 'সময় শীঘ্রই জানানো হবে';try{return new Date(t).toLocaleString('bn-BD',{dateStyle:'medium',timeStyle:'short'})}catch(e){return t}}
+function byId(id){return db.tournaments.filter(function(t){return t.id===id})[0]}
+function taken(id){return db.regs.filter(function(r){return r.tid===id}).length}
+var admin=false,tab='t',flash=null,fmode='all',edId=null,rf='all',searchText='',chk={uid:'',phone:'',run:false};
+var $=function(s){return document.querySelector(s)};
+function opts(list,sel){return list.map(function(o){return '<option'+(o===sel?' selected':'')+'>'+o+'</option>'}).join('')}
+var MODES=['Solo','Duo','Squad'],MAPS=['Bermuda','Purgatory','Kalahari','Alpine','NeXTerra'];
+
+/* ===== Theme ===== */
+function effDark(){var a=document.documentElement.getAttribute('data-theme');if(a)return a==='dark';return window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches}
+function toggleTheme(){var n=effDark()?'light':'dark';document.documentElement.setAttribute('data-theme',n);try{localStorage.setItem(TK,n)}catch(e){}}
+try{var th=localStorage.getItem(TK);if(th)document.documentElement.setAttribute('data-theme',th)}catch(e){}
+
+/* ===== Countdown ===== */
+function cdText(t){
+  var d=new Date(t).getTime()-Date.now();if(isNaN(d))return '';
+  if(d<=0)return '⏱ ম্যাচের সময় হয়েছে';
+  var s=Math.floor(d/1000),dd=Math.floor(s/86400),h=Math.floor(s%86400/3600),m=Math.floor(s%3600/60),ss=s%60;
+  return '⏳ শুরু হতে বাকি: '+(dd?bn(dd)+' দিন ':'')+bn(h)+' ঘণ্টা '+bn(m)+' মিনিট '+bn(ss)+' সেকেন্ড';
+}
+function tick(){var l=document.querySelectorAll('.cd');for(var i=0;i<l.length;i++)l[i].textContent=cdText(l[i].getAttribute('data-t'))}
+setInterval(tick,1000);
+
+/* ===== Router ===== */
+function route(){
+  var h=location.hash.replace('#','')||'home';
+  var v={admin:viewAdmin,results:viewResults,check:viewCheck,leaderboard:viewLeaderboard,updates:viewUpdates,dashboard:viewDashboard}[h]||viewHome;
+  if(!{admin:1,results:1,check:1,leaderboard:1,updates:1,dashboard:1}[h])h='home';
+  $('#app').innerHTML=v();
+  var s=db.settings;
+  document.title=s.name+' – Free Fire Tournament';
+  var n=$('#notice');n.textContent=s.notice||'';n.classList.toggle('hidden',!s.notice);
+  $('#foot').textContent='© '+new Date().getFullYear()+' '+s.name+' · শুধুমাত্র Free Fire'+(s.contact?' · '+s.contact:'');
+  document.querySelector('.logo').innerHTML=esc(s.name).replace(/^(\S+)\s?(.*)$/,'$1 <b>$2</b>');
+  var a=document.querySelectorAll('#nav a');
+  for(var i=0;i<a.length;i++){var on=a[i].getAttribute('data-r')===h;a[i].classList.toggle('on',on);if(on)a[i].setAttribute('aria-current','page');else a[i].removeAttribute('aria-current')}
+  tick();
+}
+window.addEventListener('hashchange',function(){flash=null;route()});
+
+/* ===== Public: home ===== */
+function waLink(){
+  var d=String(db.settings.whatsapp||'').replace(/\D/g,'');if(!d)return '';
+  if(d.charAt(0)==='0')d='88'+d;
+  return 'https://wa.me/'+d;
+}
+function payInfo(t){
+  var s=db.settings,l=[];
+  if(t.fee<=0)return '<div class="msg ok">এই ম্যাচ ফ্রি — ট্রানজেকশন আইডি লাগবে না।</div>';
+  if(s.bkash)l.push('bKash: <b>'+esc(s.bkash)+'</b>');
+  if(s.nagad)l.push('Nagad: <b>'+esc(s.nagad)+'</b>');
+  return '<div class="pay">'+taka(t.fee)+' সেন্ড মানি করুন'+(l.length?' — '+l.join(' · '):'')+(s.payNote?'<div>'+esc(s.payNote)+'</div>':'')+'</div>';
+}
+function viewHome(){
+  var open=db.tournaments.filter(function(t){return t.status==='open'});
+  var pool=0;open.forEach(function(t){pool+=t.prize});
+  var wa=waLink();
+  var out='<section class="hero"><h1>Free Fire<span>টুর্নামেন্ট</span></h1>'+
+  '<p>রেজিস্ট্রেশন করুন, রুম আইডি পান, ম্যাচ খেলুন এবং প্রাইজ জিতুন।</p>'+
+  '<div class="stats"><div><b>'+open.length+'</b>চলমান ম্যাচ</div><div><b>'+db.regs.length+'</b>মোট প্লেয়ার</div><div><b>'+taka(pool)+'</b>মোট প্রাইজ পুল</div></div>'+
+  (wa?'<a class="btn alt" href="'+esc(wa)+'" target="_blank" rel="noopener">WhatsApp-এ যোগাযোগ</a>':'')+'</section>'+
+  '<h2 class="sec">ম্যাচ খুঁজুন</h2><input id="matchSearch" placeholder="ম্যাচের নাম / ম্যাপ লিখুন..." value="'+esc(searchText)+'" oninput="searchMatches(this.value)">'+
+  '<div class="tabs">'+['all'].concat(MODES).map(function(m){return '<button class="'+(fmode===m?'on':'')+'" onclick="setF(\''+m+'\')">'+(m==='all'?'সব':m)+'</button>'}).join('')+'</div>';
+  if(flash)out+='<div class="msg '+flash.t+'">'+esc(flash.m)+'</div>';
+  var list=db.tournaments.filter(function(t){var q=searchText.toLowerCase();return t.status!=='done'&&(fmode==='all'||t.mode===fmode)&&(!q||(t.title+' '+t.map+' '+t.mode).toLowerCase().includes(q))});
+  if(!list.length)out+='<div class="empty">এখন কোনো ম্যাচ নেই।</div>';
+  list.forEach(function(t){
+    var n=taken(t.id),pct=Math.min(100,Math.round(n/t.slots*100)),closed=t.status!=='open',full=n>=t.slots;
+    out+='<div class="card"><div class="row"><div><h3>'+esc(t.title)+'</h3>'+
+    '<div class="tags"><span class="tag">'+esc(t.mode)+'</span><span class="tag">'+esc(t.map)+'</span><span class="tag">'+(t.fee>0?'এন্ট্রি '+taka(t.fee):'ফ্রি এন্ট্রি')+'</span></div>'+
+    '<div style="color:var(--mute);font-size:14px">'+esc(fmtTime(t.time))+'</div>'+
+    (t.time&&!closed?'<div class="cd" data-t="'+esc(t.time)+'"></div>':'')+'</div>'+
+    '<div class="prize">'+taka(t.prize)+'<small>প্রাইজ পুল</small></div></div>'+
+    '<div class="bar"><i style="width:'+pct+'%"></i></div><div style="font-size:13px;color:var(--mute)">'+n+'/'+t.slots+' স্লট পূর্ণ</div>'+
+    '<div style="margin-top:10px">'+(closed?'<button disabled>ম্যাচ বন্ধ</button>':full?'<button disabled>স্লট শেষ</button>':'<button onclick="openJoin(\''+t.id+'\')">জয়েন করুন</button>')+'</div>'+
+    '<div id="j'+t.id+'"></div></div>';
+  });
+  return out;
+}
+function setF(m){fmode=m;flash=null;route()}
+function searchMatches(v){searchText=v;var pos=document.getElementById('matchSearch');var y=window.scrollY;route();window.scrollTo(0,y);var n=document.getElementById('matchSearch');if(n){n.focus();n.setSelectionRange(v.length,v.length)}}
+function openJoin(id){
+  var box=$('#j'+id),t=byId(id);
+  if(box.innerHTML){box.innerHTML='';return}
+  box.innerHTML='<div class="grid"><div><label>Free Fire নাম</label><input id="n'+id+'" maxlength="30"></div>'+
+  '<div><label>Free Fire UID</label><input id="u'+id+'" inputmode="numeric" maxlength="14"></div>'+
+  '<div><label>ফোন নম্বর</label><input id="p'+id+'" inputmode="tel" maxlength="14" placeholder="01XXXXXXXXX"></div>'+
+  '<div><label>পেমেন্ট ট্রানজেকশন আইডি</label><input id="x'+id+'" maxlength="30" placeholder="এন্ট্রি ফি থাকলে"></div>'+
+  '<div><label>রেফারেল কোড (ঐচ্ছিক)</label><input id="ref'+id+'" maxlength="20" placeholder="বন্ধুর UID"></div></div>'+
+  payInfo(t)+
+  '<div id="e'+id+'"></div><div style="margin-top:12px"><button onclick="join(\''+id+'\')">রেজিস্ট্রেশন নিশ্চিত করুন</button></div>';
+}
+function join(id){
+  var t=byId(id);
+  var name=$('#n'+id).value.trim(),u=$('#u'+id).value.trim(),p=$('#p'+id).value.trim(),x=$('#x'+id).value.trim(),ref=$('#ref'+id).value.trim(),e=$('#e'+id);
+  var err='';
+  if(t.status!=='open')err='এই ম্যাচে এখন রেজিস্ট্রেশন বন্ধ।';
+  else if(!name)err='Free Fire নাম লিখুন।';
+  else if(!/^\d{6,14}$/.test(u))err='UID শুধু সংখ্যা হতে হবে (৬–১৪ ডিজিট)।';
+  else if(db.banned.indexOf(u)>=0)err='এই UID বর্তমানে রেজিস্ট্রেশনের জন্য ব্লক করা হয়েছে।';
+  else if(ref&&ref===u)err='নিজের UID রেফারেল হিসেবে দেওয়া যাবে না.';
+  else if(!/^01\d{9}$/.test(p))err='সঠিক ১১ ডিজিটের ফোন নম্বর দিন।';
+  else if(t.fee>0&&!x)err='এন্ট্রি ফি দিয়ে ট্রানজেকশন আইডি লিখুন।';
+  else if(db.regs.some(function(r){return r.tid===id&&r.uid===u}))err='এই UID দিয়ে আগেই রেজিস্ট্রেশন হয়েছে।';
+  else if(x&&db.regs.some(function(r){return r.trx&&r.trx.toLowerCase()===x.toLowerCase()}))err='এই ট্রানজেকশন আইডি আগেই ব্যবহার করা হয়েছে।';
+  else if(taken(id)>=t.slots)err='দুঃখিত, স্লট পূর্ণ।';
+  if(err){e.innerHTML='<div class="msg bad">'+esc(err)+'</div>';return}
+  db.regs.push({id:uid(),tid:id,name:name,uid:u,phone:p,trx:x,ref:ref,at:Date.now(),paid:t.fee<=0});
+  save();
+  chk={uid:u,phone:p,run:false};
+  flash={t:'ok',m:'রেজিস্ট্রেশন সফল হয়েছে। অ্যাডমিন যাচাইয়ের পর "আমার স্ট্যাটাস" পেজে UID ও ফোন নম্বর দিয়ে রুম আইডি দেখতে পারবেন।'};
+  route();window.scrollTo(0,0);
+}
+
+/* ===== Public: my status ===== */
+function viewCheck(){
+  var out='<h2 class="sec">আমার স্ট্যাটাস</h2><div class="card"><p style="color:var(--mute);margin:0">UID ও ফোন নম্বর দিয়ে রেজিস্ট্রেশন ও রুম আইডি দেখুন।</p>'+
+  '<div class="grid"><div><label>Free Fire UID</label><input id="c_uid" inputmode="numeric" maxlength="14" value="'+esc(chk.uid)+'"></div>'+
+  '<div><label>ফোন নম্বর</label><input id="c_phone" inputmode="tel" maxlength="14" value="'+esc(chk.phone)+'" onkeydown="if(event.key===\'Enter\')runChk()"></div></div>'+
+  '<div style="margin-top:12px"><button onclick="runChk()">দেখুন</button></div></div>';
+  if(chk.run){
+    var mine=db.regs.filter(function(r){return r.uid===chk.uid&&r.phone===chk.phone&&byId(r.tid)});
+    if(!mine.length)out+='<div class="msg bad">কোনো রেজিস্ট্রেশন পাওয়া যায়নি। UID ও ফোন নম্বর আবার দেখুন।</div>';
+    mine.forEach(function(r){
+      var t=byId(r.tid),box='';
+      if(t.status==='done')box='<div class="msg ok">ম্যাচ শেষ। ফলাফল পেজে দেখুন।</div>';
+      else if(!r.paid)box='<div class="msg bad">পেমেন্ট যাচাই চলছে। যাচাই হলে রুম আইডি এখানে দেখা যাবে।</div>';
+      else if(t.room)box='<div class="room">রুম আইডি: <b>'+esc(t.room)+'</b>'+(t.roomPass?' · পাসওয়ার্ড: <b>'+esc(t.roomPass)+'</b>':'')+'</div>';
+      else box='<div class="msg ok">আপনি নিশ্চিত। রুম আইডি ম্যাচের আগে এখানে আপডেট হবে।</div>';
+      out+='<div class="card"><div class="row"><div><h3>'+esc(t.title)+'</h3><div style="color:var(--mute);font-size:14px">'+esc(r.name)+' · '+esc(t.mode)+' · '+esc(t.map)+'</div>'+
+      '<div style="color:var(--mute);font-size:14px">'+esc(fmtTime(t.time))+'</div></div>'+
+      '<span class="tag '+(r.paid?'ok':'warn')+'">'+(r.paid?'✔ নিশ্চিত':'যাচাই অপেক্ষমাণ')+'</span></div>'+box+'</div>';
+    });
+  }
+  return out;
+}
+function runChk(){chk={uid:$('#c_uid').value.trim(),phone:$('#c_phone').value.trim(),run:true};route()}
+
+/* ===== Public: results ===== */
+function viewResults(){
+  var done=db.tournaments.filter(function(t){return t.status==='done'});
+  var out='<h2 class="sec">ফলাফল</h2>';
+  var tot={};
+  done.forEach(function(t){t.result.forEach(function(w){var k=w.name;tot[k]=(tot[k]||0)+(+w.prize||0)})});
+  var top=Object.keys(tot).map(function(k){return{name:k,prize:tot[k]}}).sort(function(a,b){return b.prize-a.prize}).slice(0,5);
+  if(top.length){
+    out+='<div class="card"><h3>🏆 টপ উইনার</h3><div style="margin-top:8px">'+top.map(function(w,i){return '<div class="win"><span>'+bn(i+1)+'. '+esc(w.name)+'</span><b>'+taka(w.prize)+'</b></div>'}).join('')+'</div></div>';
+  }
+  if(!done.length)return out+'<div class="empty">এখনো কোনো ম্যাচের ফলাফল দেওয়া হয়নি।</div>';
+  done.forEach(function(t){
+    out+='<div class="card"><div class="row"><div><h3>'+esc(t.title)+'</h3><div style="color:var(--mute);font-size:14px">'+esc(t.mode)+' · '+esc(t.map)+' · '+esc(fmtTime(t.time))+'</div></div>'+
+    '<div class="prize">'+taka(t.prize)+'<small>প্রাইজ পুল</small></div></div>'+
+    '<div style="margin-top:8px">'+(t.result.length?t.result.map(function(w){return '<div class="win"><span>'+['','🥇','🥈','🥉'][w.pos]+' '+esc(w.name)+'</span><b>'+taka(w.prize)+'</b></div>'}).join(''):'<div class="empty">ফলাফল শীঘ্রই আসছে।</div>')+'</div></div>';
+  });
+  return out;
+}
+
+/* ===== V3: player dashboard, leaderboard and in-app updates ===== */
+function viewLeaderboard(){
+  var scores={};
+  db.tournaments.filter(function(t){return t.status==='done'}).forEach(function(t){
+    t.result.forEach(function(w){var k=w.uid||w.name;if(!scores[k])scores[k]={name:w.name,points:0,wins:0,prize:0};scores[k].wins++;scores[k].prize+=(+w.prize||0);scores[k].points+=(4-(+w.pos||3))*10});
+  });
+  var rows=Object.keys(scores).map(function(k){return scores[k]}).sort(function(a,b){return b.points-a.points||b.prize-a.prize});
+  var out='<h2 class="sec">🏆 প্লেয়ার লিডারবোর্ড</h2><p style="color:var(--mute)">অ্যাডমিন প্রকাশিত ম্যাচের ফলাফলের ভিত্তিতে পয়েন্ট দেখানো হচ্ছে।</p>';
+  if(!rows.length)return out+'<div class="empty">এখনো কোনো ফলাফল প্রকাশিত হয়নি।</div>';
+  rows.forEach(function(r,i){out+='<div class="card row"><div><b>'+bn(i+1)+'. '+esc(r.name)+'</b><div style="color:var(--mute);font-size:13px">'+r.wins+'টি পডিয়াম · পুরস্কার '+taka(r.prize)+'</div></div><div class="prize">'+r.points+'<small>পয়েন্ট</small></div></div>'});
+  return out;
+}
+function viewUpdates(){
+  var items=[];
+  db.tournaments.forEach(function(t){
+    if(t.status==='open')items.push({at:t.time?new Date(t.time).getTime():0,title:'নতুন/চলমান ম্যাচ: '+t.title,desc:t.mode+' · '+t.map+' · '+fmtTime(t.time)});
+    if(t.room)items.push({at:t.time?new Date(t.time).getTime():0,title:'রুম তথ্য আপডেট হয়েছে: '+t.title,desc:'রেজিস্ট্রেশন নিশ্চিত হওয়া খেলোয়াড়রা আমার স্ট্যাটাস পেজে দেখুন।'});
+    if(t.status==='done')items.push({at:t.time?new Date(t.time).getTime():0,title:'ফলাফল প্রকাশিত: '+t.title,desc:'ফলাফল ও লিডারবোর্ড পেজ দেখুন।'});
+  });
+  items.sort(function(a,b){return b.at-a.at});
+  var out='<h2 class="sec">🔔 অ্যাপ আপডেট</h2><p style="color:var(--mute)">ম্যাচ, রুম ও ফলাফলের বর্তমান আপডেট।</p>';
+  if(!items.length)return out+'<div class="empty">এখনো কোনো আপডেট নেই।</div>';
+  items.forEach(function(x){out+='<div class="card"><b>'+esc(x.title)+'</b><div style="color:var(--mute);font-size:14px">'+esc(x.desc)+'</div></div>'});
+  return out;
+}
+function viewDashboard(){
+  var out='<h2 class="sec">আমার প্লেয়ার ড্যাশবোর্ড</h2><div class="card"><label>Free Fire UID</label><input id="d_uid" inputmode="numeric" maxlength="14" value="'+esc(chk.uid)+'"><label>ফোন নম্বর</label><input id="d_phone" inputmode="tel" maxlength="14" value="'+esc(chk.phone)+'"><div style="margin-top:12px"><button onclick="loadDashboard()">ড্যাশবোর্ড দেখুন</button></div></div>';
+  if(chk.run){var mine=db.regs.filter(function(r){return r.uid===chk.uid&&r.phone===chk.phone});
+    if(!mine.length)out+='<div class="msg bad">এই তথ্য দিয়ে কোনো প্লেয়ার প্রোফাইল পাওয়া যায়নি।</div>';
+    mine.forEach(function(r){var t=byId(r.tid);if(!t)return;out+='<div class="card"><h3>'+esc(r.name)+'</h3><div>UID: '+esc(r.uid)+'</div><div>ম্যাচ: '+esc(t.title)+'</div><div>পেমেন্ট: '+(r.paid?'যাচাই হয়েছে':'অপেক্ষমাণ')+'</div><div>রেফারেল: '+esc(r.ref||'দেওয়া হয়নি')+'</div><div>রেজিস্ট্রেশন: '+new Date(r.at).toLocaleString('bn-BD')+'</div></div>'})
+  }
+  return out;
+}
+function loadDashboard(){chk={uid:$('#d_uid').value.trim(),phone:$('#d_phone').value.trim(),run:true};route()}
+
+/* ===== Admin ===== */
+function viewAdmin(){
+  if(!admin)return '<h2 class="sec">অ্যাডমিন লগইন</h2><div class="card"><label>পাসওয়ার্ড</label><input id="ap" type="password" autocomplete="current-password" onkeydown="if(event.key===\'Enter\')login()">'+
+  '<div id="ae"></div><div style="margin-top:12px"><button onclick="login()">লগইন</button></div></div>';
+  var out='<h2 class="sec">অ্যাডমিন প্যানেল</h2>'+
+  '<div class="tabs"><button class="'+(tab==='t'?'on':'')+'" onclick="setTab(\'t\')">ম্যাচ</button><button class="'+(tab==='r'?'on':'')+'" onclick="setTab(\'r\')">রেজিস্ট্রেশন ('+db.regs.length+')</button><button class="'+(tab==='s'?'on':'')+'" onclick="setTab(\'s\')">সেটিংস</button><button class="alt" onclick="logout()">লগআউট</button></div>';
+  if(flash)out+='<div class="msg '+flash.t+'">'+esc(flash.m)+'</div>';
+  if(tab==='t')out+=adminT();else if(tab==='r')out+=adminR();else out+=adminS();
+  return out;
+}
+function login(){
+  if($('#ap').value===db.settings.pass){admin=true;route()}
+  else $('#ae').innerHTML='<div class="msg bad">পাসওয়ার্ড ভুল।</div>';
+}
+function logout(){admin=false;flash=null;edId=null;route()}
+function setTab(t){tab=t;flash=null;edId=null;route()}
+var SL={open:'চালু',closed:'বন্ধ',done:'শেষ'};
+function adminT(){
+  var paidN=0,coll=0;
+  db.regs.forEach(function(r){if(r.paid){paidN++;var t=byId(r.tid);if(t)coll+=t.fee}});
+  var out='<div class="stats"><div><b>'+db.regs.length+'</b>মোট রেজিস্ট্রেশন</div><div><b>'+paidN+'</b>যাচাই হয়েছে</div><div><b>'+(db.regs.length-paidN)+'</b>অপেক্ষমাণ</div><div><b>'+taka(coll)+'</b>সংগৃহীত ফি</div></div>'+
+  '<div class="card"><h3>নতুন ম্যাচ যোগ করুন</h3><div class="grid">'+
+  '<div><label>ম্যাচের নাম</label><input id="f_title"></div>'+
+  '<div><label>মোড</label><select id="f_mode">'+opts(MODES,'Squad')+'</select></div>'+
+  '<div><label>ম্যাপ</label><select id="f_map">'+opts(MAPS,'Bermuda')+'</select></div>'+
+  '<div><label>এন্ট্রি ফি (৳)</label><input id="f_fee" type="number" min="0" value="0"></div>'+
+  '<div><label>প্রাইজ পুল (৳)</label><input id="f_prize" type="number" min="0" value="0"></div>'+
+  '<div><label>মোট স্লট</label><input id="f_slots" type="number" min="1" value="12"></div></div>'+
+  '<label>ম্যাচের সময়</label><input id="f_time" type="datetime-local">'+
+  '<div style="margin-top:12px"><button onclick="addT()">ম্যাচ যোগ করুন</button></div></div>';
+  db.tournaments.forEach(function(t){
+    out+='<div class="card"><div class="row"><div><b>'+esc(t.title)+'</b><div style="font-size:13px;color:var(--mute)">'+esc(t.mode)+' · '+esc(t.map)+' · '+taken(t.id)+'/'+t.slots+' স্লট · '+SL[t.status]+(t.room?' · রুম সেট আছে':'')+'</div></div>'+
+    '<div style="display:flex;gap:8px;flex-wrap:wrap"><button class="alt" onclick="editT(\''+t.id+'\')">'+(edId===t.id?'বন্ধ করুন ✕':'এডিট / রুম / ফলাফল')+'</button>'+
+    (t.status!=='done'?'<button class="alt" onclick="toggleT(\''+t.id+'\')">'+(t.status==='open'?'রেজিস্ট্রেশন বন্ধ':'রেজিস্ট্রেশন চালু')+'</button>':'')+
+    '<button class="del" onclick="delT(\''+t.id+'\')">মুছুন</button></div></div>'+(edId===t.id?editPanel(t):'')+'</div>';
+  });
+  return out;
+}
+function editPanel(t){
+  var rs='';
+  for(var i=1;i<=3;i++){
+    var w=t.result.filter(function(x){return x.pos===i})[0]||{};
+    rs+='<div class="grid"><div><label>'+['','🥇 ১ম','🥈 ২য়','🥉 ৩য়'][i]+' — প্লেয়ারের নাম</label><input id="e_rn'+i+'" value="'+esc(w.name||'')+'"></div>'+
+    '<div><label>প্লেয়ারের UID (ঐচ্ছিক)</label><input id="e_ru'+i+'" inputmode="numeric" value="'+esc(w.uid||'')+'"></div>'+
+    '<div><label>প্রাইজ (৳)</label><input id="e_rp'+i+'" type="number" min="0" value="'+esc(w.prize||'')+'"></div></div>';
+  }
+  return '<div class="edit"><h4>ম্যাচের তথ্য</h4><div class="grid">'+
+  '<div><label>ম্যাচের নাম</label><input id="e_title" value="'+esc(t.title)+'"></div>'+
+  '<div><label>মোড</label><select id="e_mode">'+opts(MODES,t.mode)+'</select></div>'+
+  '<div><label>ম্যাপ</label><select id="e_map">'+opts(MAPS,t.map)+'</select></div>'+
+  '<div><label>এন্ট্রি ফি (৳)</label><input id="e_fee" type="number" min="0" value="'+esc(t.fee)+'"></div>'+
+  '<div><label>প্রাইজ পুল (৳)</label><input id="e_prize" type="number" min="0" value="'+esc(t.prize)+'"></div>'+
+  '<div><label>মোট স্লট</label><input id="e_slots" type="number" min="1" value="'+esc(t.slots)+'"></div></div>'+
+  '<label>ম্যাচের সময়</label><input id="e_time" type="datetime-local" value="'+esc(t.time)+'">'+
+  '<label>স্ট্যাটাস</label><select id="e_status"><option value="open"'+(t.status==='open'?' selected':'')+'>চালু</option><option value="closed"'+(t.status==='closed'?' selected':'')+'>রেজিস্ট্রেশন বন্ধ</option><option value="done"'+(t.status==='done'?' selected':'')+'>ম্যাচ শেষ (ফলাফলে যাবে)</option></select>'+
+  '<h4>রুম তথ্য (শুধু যাচাই হওয়া প্লেয়ার দেখবে)</h4><div class="grid">'+
+  '<div><label>রুম আইডি</label><input id="e_room" value="'+esc(t.room)+'"></div>'+
+  '<div><label>রুম পাসওয়ার্ড</label><input id="e_rpass" value="'+esc(t.roomPass)+'"></div></div>'+
+  '<h4>ফলাফল</h4>'+rs+
+  '<div style="margin-top:12px"><button onclick="saveE(\''+t.id+'\')">সেভ করুন</button></div></div>';
+}
+function editT(id){edId=(edId===id)?null:id;flash=null;route()}
+function saveE(id){
+  var t=byId(id),g=function(k){return $('#e_'+k).value.trim()};
+  if(!g('title')){flash={t:'bad',m:'ম্যাচের নাম লিখুন।'};route();return}
+  t.title=g('title');t.mode=g('mode');t.map=g('map');t.fee=+g('fee')||0;t.prize=+g('prize')||0;
+  t.slots=Math.max(taken(id),1,+g('slots')||1);
+  t.time=g('time');t.status=g('status');t.room=g('room');t.roomPass=g('rpass');
+  t.result=[];
+  for(var i=1;i<=3;i++){var nm=g('rn'+i),wu=g('ru'+i);if(nm)t.result.push({pos:i,name:nm,uid:wu,prize:+g('rp'+i)||0})}
+  edId=null;save();flash={t:'ok',m:'ম্যাচ আপডেট হয়েছে।'};route();
+}
+function addT(){
+  var g=function(k){return $('#f_'+k).value.trim()};
+  if(!g('title')){flash={t:'bad',m:'ম্যাচের নাম লিখুন।'};route();return}
+  db.tournaments.unshift({id:uid(),title:g('title'),mode:g('mode'),map:g('map'),fee:+g('fee')||0,prize:+g('prize')||0,slots:Math.max(1,+g('slots')||1),time:g('time'),status:'open',room:'',roomPass:'',result:[]});
+  save();flash={t:'ok',m:'ম্যাচ যোগ হয়েছে।'};route();
+}
+function toggleT(id){db.tournaments.forEach(function(t){if(t.id===id)t.status=t.status==='open'?'closed':'open'});save();flash=null;route()}
+function delT(id){
+  if(!confirm('এই ম্যাচ ও এর সব রেজিস্ট্রেশন মুছে যাবে। নিশ্চিত?'))return;
+  db.tournaments=db.tournaments.filter(function(t){return t.id!==id});
+  db.regs=db.regs.filter(function(r){return r.tid!==id});
+  if(edId===id)edId=null;
+  save();flash={t:'ok',m:'ম্যাচ মুছে ফেলা হয়েছে।'};route();
+}
+function filteredRegs(){return db.regs.filter(function(r){return rf==='all'||r.tid===rf})}
+function adminR(){
+  if(!db.regs.length)return '<div class="empty">এখনো কোনো রেজিস্ট্রেশন নেই।</div>';
+  var tn={};db.tournaments.forEach(function(t){tn[t.id]=t.title});
+  var list=filteredRegs();
+  var out='<div style="max-width:320px"><label>ম্যাচ অনুযায়ী ফিল্টার</label><select id="rf" onchange="setRF(this.value)"><option value="all">সব ম্যাচ ('+db.regs.length+')</option>'+
+  db.tournaments.map(function(t){return '<option value="'+t.id+'"'+(rf===t.id?' selected':'')+'>'+esc(t.title)+' ('+taken(t.id)+')</option>'}).join('')+'</select></div>'+
+  '<div class="card scroll" style="margin-top:12px"><table><tr><th>ম্যাচ</th><th>নাম</th><th>UID</th><th>ফোন</th><th>TrxID</th><th>পেমেন্ট</th><th></th></tr>';
+  list.slice().reverse().forEach(function(r){
+    out+='<tr><td>'+esc(tn[r.tid]||'—')+'</td><td>'+esc(r.name)+'</td><td>'+esc(r.uid)+'</td><td>'+esc(r.phone)+'</td><td>'+esc(r.trx||'—')+'</td>'+
+    '<td><button class="alt" style="min-height:32px;padding:2px 10px" onclick="paid(\''+r.id+'\')">'+(r.paid?'✔ যাচাই হয়েছে':'যাচাই করুন')+'</button></td>'+
+    '<td><button class="alt" onclick="toggleBan(\''+r.uid+'\')">'+(db.banned.indexOf(r.uid)>=0?'আনব্লক':'UID ব্লক')+'</button> <button class="del" onclick="delR(\''+r.id+'\')">মুছুন</button></td></tr>';
+  });
+  return out+'</table></div><button class="alt" onclick="csv()">CSV ডাউনলোড</button>';
+}
+function toggleBan(u){if(db.banned.indexOf(u)>=0)db.banned=db.banned.filter(function(x){return x!==u});else db.banned.push(u);save();flash={t:'ok',m:'UID ব্লক তালিকা আপডেট হয়েছে।'};route()}
+function setRF(v){rf=v;flash=null;route()}
+function paid(id){db.regs.forEach(function(r){if(r.id===id)r.paid=!r.paid});save();flash=null;route()}
+function delR(id){if(!confirm('এই রেজিস্ট্রেশন মুছবেন?'))return;db.regs=db.regs.filter(function(r){return r.id!==id});save();flash=null;route()}
+function csv(){
+  var tn={};db.tournaments.forEach(function(t){tn[t.id]=t.title});
+  var rows=[['match','name','uid','phone','trx','referral','paid']].concat(filteredRegs().map(function(r){return [tn[r.tid]||'',r.name,r.uid,r.phone,r.trx,r.ref||'',r.paid?'yes':'no']}));
+  var text=rows.map(function(r){return r.map(function(c){return '"'+String(c==null?'':c).replace(/"/g,'""')+'"'}).join(',')}).join('\n');
+  try{
+    var b=new Blob(['\ufeff'+text],{type:'text/csv;charset=utf-8'}),a=document.createElement('a');
+    a.href=URL.createObjectURL(b);a.download='registrations.csv';document.body.appendChild(a);a.click();a.remove();
+    flash={t:'ok',m:'CSV ফাইল ডাউনলোড হয়েছে।'};
+  }catch(e){
+    try{navigator.clipboard.writeText(text);flash={t:'ok',m:'CSV ডেটা কপি হয়েছে। যেকোনো নোট বা শিটে পেস্ট করুন।'}}catch(e2){flash={t:'bad',m:'ডাউনলোড বা কপি করা যায়নি।'}}
+  }
+  route();
+}
+function adminS(){
+  var s=db.settings;
+  return '<div class="card"><h3>সাইট সেটিংস</h3><label>সাইটের নাম</label><input id="s_name" value="'+esc(s.name)+'">'+
+  '<label>উপরের নোটিশ (ফাঁকা রাখলে লুকাবে)</label><input id="s_notice" value="'+esc(s.notice)+'">'+
+  '<label>ফুটারে যোগাযোগ (ঐচ্ছিক)</label><input id="s_contact" value="'+esc(s.contact)+'">'+
+  '<label>WhatsApp নম্বর (01XXXXXXXXX)</label><input id="s_wa" inputmode="tel" value="'+esc(s.whatsapp)+'">'+
+  '<h3 style="margin-top:18px">পেমেন্ট তথ্য</h3><div class="grid"><div><label>bKash নম্বর</label><input id="s_bk" inputmode="tel" value="'+esc(s.bkash)+'"></div>'+
+  '<div><label>Nagad নম্বর</label><input id="s_ng" inputmode="tel" value="'+esc(s.nagad)+'"></div></div>'+
+  '<label>পেমেন্ট নির্দেশনা (ঐচ্ছিক)</label><input id="s_pn" value="'+esc(s.payNote)+'" placeholder="যেমন: রেফারেন্সে আপনার UID লিখুন">'+
+  '<label>নতুন অ্যাডমিন পাসওয়ার্ড (বদলাতে না চাইলে ফাঁকা রাখুন)</label><input id="s_pass" type="text" autocomplete="off">'+
+  (s.pass==='admin123'?'<div class="msg bad">আপনি এখনো ডিফল্ট পাসওয়ার্ড (admin123) ব্যবহার করছেন। দ্রুত বদলে নিন।</div>':'')+
+  '<div style="margin-top:12px"><button onclick="saveS()">সেভ করুন</button></div></div>'+
+  '<div class="card"><h3>ডেটা রিসেট</h3><p style="color:var(--mute);margin:6px 0">এই ডিভাইসের সব ম্যাচ ও রেজিস্ট্রেশন মুছে যাবে।</p><button class="del" onclick="resetAll()">সব রিসেট করুন</button></div>';
+}
+function saveS(){
+  var s=db.settings,p=$('#s_pass').value.trim(),g=function(k){return $('#s_'+k).value.trim()};
+  s.name=g('name')||'JFB Gaming';s.notice=g('notice');s.contact=g('contact');s.whatsapp=g('wa');s.bkash=g('bk');s.nagad=g('ng');s.payNote=g('pn');
+  if(p){if(p.length<6){flash={t:'bad',m:'পাসওয়ার্ড কমপক্ষে ৬ অক্ষরের হতে হবে।'};route();return}s.pass=p}
+  save();flash={t:'ok',m:'সেটিংস সেভ হয়েছে।'};route();
+}
+function resetAll(){if(!confirm('সত্যিই সব ডেটা মুছবেন?'))return;var pass=db.settings.pass;db=clone(DEF);db.settings.pass=pass;save();edId=null;flash={t:'ok',m:'রিসেট সম্পন্ন।'};route()}
+
+load();route();
+</script>
+</body>
+</html>
